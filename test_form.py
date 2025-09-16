@@ -38,7 +38,8 @@ def test_submit_form_with_all_filled_fields(browser_settings):
     browser.element('.react-datepicker__month-select').element('option[value="0"]').click()
     browser.element('.react-datepicker__year-select').element('option[value="2000"]').click()
     browser.element('.react-datepicker__day--010').click()
-    browser.element('#subjectsInput').set_value('Some subject.')
+
+    browser.element('#subjectsInput').type('English').press_enter()
 
     browser.element("label[for='hobbies-checkbox-2']").click() #.should(be.visible).should(be.clickable).click()
     #browser.element("#hobbies-checkbox-2").should(have.attribute("checked"))
@@ -63,8 +64,7 @@ def test_submit_form_with_all_filled_fields(browser_settings):
             'Gender', 'Female',
             'Mobile', '9110000000',
             'Date of Birth', "10 January,2000",
-            # у меня текст из Subjects удаляется при любом клике, в т.ч. на Submit
-            'Subjects', 'Some subject.',
+            'Subjects', 'English',
             'Hobbies', 'Reading',
             'Picture', 'flower.jpg',
             'Address', '2920 Zoo Dr, San Diego, CA 92101',
