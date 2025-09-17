@@ -1,6 +1,5 @@
 import pytest
 import os
-import time
 from selene import browser, have, be
 from selenium import webdriver
 
@@ -15,7 +14,7 @@ def browser_settings():
     browser.driver.execute_script("$('footer').remove()")
     yield
     browser.element('#closeLargeModal').click()
-    browser.close()
+    browser.quit()
 
 
 def test_submit_form_with_all_filled_fields(browser_settings):
