@@ -11,5 +11,4 @@ def open_browser():
     browser.config.driver_options = driver_options
 
     yield
-    browser.element('#closeLargeModal').click()
     browser.quit()

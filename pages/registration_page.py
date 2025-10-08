@@ -53,10 +53,10 @@ class RegistrationPage:
 
     def fill_subjects(self, *subjects):
         for subject in subjects:
-            browser.element('#subjectInput').type(subject).press_enter()
+            browser.element('#subjectsInput').type(subject).press_enter()
         return self
 
-    def fill_hobby(self, *hobbies):
+    def fill_hobbies(self, *hobbies):
         hobbies_map = {
             'Sports': "label[for='hobbies-checkbox-1']",
             'Reading': "label[for='hobbies-checkbox-2']",
@@ -93,10 +93,10 @@ class RegistrationPage:
 
     def should_have_registered(self, full_name=None, email=None, gender=None,
                                    phone=None, date_of_birth=None, subjects=None,
-                                   hobbies=None, picture=None, address=None,
+                                   hobbies=None, photo=None, address=None,
                                    state_and_city=None):
         fields = [full_name, email, gender, phone, date_of_birth,
-                  subjects, hobbies, picture, address, state_and_city]
+                  subjects, hobbies, photo, address, state_and_city]
 
         expected = [field for field in fields if field is not None]
 
