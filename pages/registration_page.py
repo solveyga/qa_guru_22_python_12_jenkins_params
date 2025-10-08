@@ -62,7 +62,7 @@ class RegistrationPage:
             'Reading': "label[for='hobbies-checkbox-2']",
             'Music': "label[for='hobbies-checkbox-3']"
         }
-        for hobby in hobbies_map:
+        for hobby in hobbies:
             browser.element(hobbies_map[hobby]).click()
         return self
 
@@ -91,6 +91,16 @@ class RegistrationPage:
         browser.element('#submit').click()
         return self
 
-    def should_have_registered(self):
-        pass
+    def should_have_registered(self, full_name=None, email=None, gender=None,
+                                   phone=None, date_of_birth=None, subjects=None,
+                                   hobbies=None, picture=None, address=None,
+                                   state_and_city=None):
+        fields = [full_name, email, gender, phone, date_of_birth,
+                  subjects, hobbies, picture, address, state_and_city]
+
+        expected = [field for field in fields if field is not None]
+
+        browser.element('.table').all('td').even.should(have.exact_texts(*expected))
+        return self
+
 
