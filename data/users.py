@@ -8,6 +8,11 @@ class Gender(Enum):
     FEMALE = 'Female'
     OTHER = 'Other'
 
+class Hobby(Enum):
+    SPORTS = 'Sports'
+    READING = 'Reading'
+    MUSIC = 'Music'
+
 @dataclasses.dataclass
 class User:
     first_name: str =  'Firstname'
@@ -17,7 +22,7 @@ class User:
     phone: str =  '9110000000'
     date_of_birth: date = date(2000, 1, 11)
     subjects: list = field(default_factory=lambda: ['Computer Science', 'English'])
-    hobbies: list = field(default_factory=lambda: ['Reading', 'Music'])
+    hobbies: list = field(default_factory=lambda: [Hobby.READING, Hobby.MUSIC])
     address: str = '2920 Zoo Dr, San Diego, CA 92101'
     state: str = 'Uttar Pradesh'
     city: str = 'Agra'

@@ -1,7 +1,7 @@
 from selene import have, command
 from selene.support.shared import browser
 from pathlib import Path
-from data.users import User, Gender
+from data.users import User, Gender, Hobby
 
 
 class RegistrationPage:
@@ -10,6 +10,12 @@ class RegistrationPage:
         Gender.MALE: "label[for='gender-radio-1']",
         Gender.FEMALE: "label[for='gender-radio-2']",
         Gender.OTHER: "label[for='gender-radio-3']"
+    }
+
+    HOBBIES_MAP = {
+        Hobby.SPORTS: "label[for='hobbies-checkbox-1']",
+        Hobby.READING: "label[for='hobbies-checkbox-2']",
+        Hobby.MUSIC: "label[for='hobbies-checkbox-3']"
     }
 
     def __init__(self):
@@ -40,14 +46,9 @@ class RegistrationPage:
         return self
 
 
-    def fill_hobbies(self, *hobbies):
-        hobbies_map = {
-            'Sports': "label[for='hobbies-checkbox-1']",
-            'Reading': "label[for='hobbies-checkbox-2']",
-            'Music': "label[for='hobbies-checkbox-3']"
-        }
+    def fill_hobbies(self, *hobbies: Hobby):
         for hobby in hobbies:
-            browser.element(hobbies_map[hobby]).click()
+            browser.element(self.HOBBIES_MAP[hobby]).click()
         return self
 
     def register(self, user: User):
@@ -93,7 +94,7 @@ class RegistrationPage:
             user.phone,
             user.date_of_birth.strftime('%d %B,%Y'),
             ', '.join(user.subjects),
-            ', '.join(user.hobbies),
+            ', '.join([hobby.value for hobby in user.hobbies]),
             user.photo,
             user.address,
             f'{user.state} {user.city}'
