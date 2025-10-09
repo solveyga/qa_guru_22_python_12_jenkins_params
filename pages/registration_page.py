@@ -1,10 +1,17 @@
 from selene import have, command
 from selene.support.shared import browser
 from pathlib import Path
-from data.users import User
+from data.users import User, Gender
 
 
 class RegistrationPage:
+
+    GENDER_MAP = {
+        Gender.MALE: "label[for='gender-radio-1']",
+        Gender.FEMALE: "label[for='gender-radio-2']",
+        Gender.OTHER: "label[for='gender-radio-3']"
+    }
+
     def __init__(self):
         self.first_name = browser.element('#firstName')
         self.last_name = browser.element('#lastName')
@@ -29,12 +36,7 @@ class RegistrationPage:
 
 
     def fill_gender(self, gender):
-        genders = {
-            'Male': "label[for='gender-radio-1']",
-            'Female': "label[for='gender-radio-2']",
-            'Other': "label[for='gender-radio-3']"
-        }
-        browser.element(genders[gender]).click()
+        browser.element(self.GENDER_MAP[gender]).click()
         return self
 
 
@@ -87,7 +89,7 @@ class RegistrationPage:
         browser.element('.table').all('td').even.should(have.exact_texts(
             f'{user.first_name} {user.last_name}',
             user.email,
-            user.gender,
+            user.gender.value,
             user.phone,
             user.date_of_birth.strftime('%d %B,%Y'),
             ', '.join(user.subjects),

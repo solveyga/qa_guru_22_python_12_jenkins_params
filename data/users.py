@@ -3,13 +3,17 @@ from dataclasses import dataclass, field
 from datetime import date
 from enum import Enum
 
+class Gender(Enum):
+    MALE = 'Male'
+    FEMALE = 'Female'
+    OTHER = 'Other'
 
 @dataclasses.dataclass
 class User:
     first_name: str =  'Firstname'
     last_name: str = 'Lastname'
     email: str = 'first_last@example.com'
-    gender: str =  'Female'
+    gender: str =  Gender.FEMALE
     phone: str =  '9110000000'
     date_of_birth: date = date(2000, 1, 11)
     subjects: list = field(default_factory=lambda: ['Computer Science', 'English'])
