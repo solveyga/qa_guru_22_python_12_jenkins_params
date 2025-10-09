@@ -57,9 +57,12 @@ class RegistrationPage:
 
         self.phone.type(user.phone)
         self.date_of_birth.click()
-        browser.element('.react-datepicker__month-select').send_keys(user.month)
-        browser.element('.react-datepicker__year-select').send_keys(user.year)
-        browser.element(f'.react-datepicker__day--0{user.day}:not(.react-datepicker__day--outside-month)').click()
+        month_index = user.date_of_birth.month - 1
+        browser.element('.react-datepicker__month-select').element(f'option[value="{month_index}"]').click()
+        browser.element('.react-datepicker__year-select').element(f'option[value="{user.date_of_birth.year}"]').click()
+        browser.element(
+            f'.react-datepicker__day--0{user.date_of_birth.day}:not(.react-datepicker__day--outside-month)'
+        ).click()
 
         for subject in user.subjects:
             self.subjects.type(subject).press_enter()
@@ -86,7 +89,7 @@ class RegistrationPage:
             user.email,
             user.gender,
             user.phone,
-            f'{user.day} {user.month},{user.year}',
+            user.date_of_birth.strftime('%d %B,%Y'),
             ', '.join(user.subjects),
             ', '.join(user.hobbies),
             user.photo,
