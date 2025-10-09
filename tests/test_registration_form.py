@@ -10,4 +10,3 @@ def test_registration_form_with_all_fields():
     registration_page.open()
     registration_page.register(user)
     registration_page.should_have_registered(user)
-
