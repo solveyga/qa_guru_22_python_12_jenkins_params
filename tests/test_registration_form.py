@@ -1,5 +1,6 @@
 from pages.registration_page import RegistrationPage
 from data.users import User
+import allure
 
 
 def test_registration_form_with_all_fields():
