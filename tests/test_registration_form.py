@@ -3,6 +3,7 @@ from data.users import User
 import allure
 
 
+@allure.feature("Проверка заполнения формы")
 def test_registration_form_with_all_fields():
 
     user = User()
