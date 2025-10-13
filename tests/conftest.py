@@ -8,8 +8,8 @@ from utils import attaches
 from dotenv import load_dotenv
 import os
 
-import tempfile
-import shutil
+# import tempfile
+# import shutil
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -17,6 +17,9 @@ def load_env():
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     dotenv_path = os.path.join(base_dir, '.env')
     load_dotenv(dotenv_path=dotenv_path)
+    # print(f"SELENOID_LOGIN={os.getenv('SELENOID_LOGIN')}")
+    # print(f"SELENOID_PASS={os.getenv('SELENOID_PASS')}")
+    # print(f"SELENOID_URL={os.getenv('SELENOID_URL')}")
 
 
 @pytest.fixture(scope="function")
@@ -27,17 +30,16 @@ def setup_browser(request):
 
     options = Options()
     options.page_load_strategy = "eager"
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
+    # options.add_argument("--no-sandbox")
+    # options.add_argument("--disable-dev-shm-usage")
+    # options.add_argument("--disable-gpu")
 
-    temp_dir = tempfile.mkdtemp()
-    options.add_argument(f'--user-data-dir={temp_dir}')
-
+    # temp_dir = tempfile.mkdtemp()
+    # options.add_argument(f'--user-data-dir={temp_dir}')
 
     selenoid_capabilities = {
         "browserName": "chrome",
-        #"browserVersion": "100.0",
+        # "browserVersion": "100.0",
         "selenoid:options": {"enableVNC": True, "enableVideo": True},
     }
     options.capabilities.update(selenoid_capabilities)
@@ -58,4 +60,4 @@ def setup_browser(request):
     attaches.add_video(browser)
 
     browser.quit()
-    shutil.rmtree(temp_dir)
+    # shutil.rmtree(temp_dir)
