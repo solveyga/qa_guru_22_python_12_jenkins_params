@@ -15,18 +15,13 @@ def load_env():
     dotenv_path = os.path.join(base_dir, '.env')
     load_dotenv(dotenv_path=dotenv_path)
 
-    print(f"SELENOID_LOGIN={os.getenv('SELENOID_LOGIN')}")
-    print(f"SELENOID_PASS={os.getenv('SELENOID_PASS')}")
-    print(f"SELENOID_URL={os.getenv('SELENOID_URL')}")
-
-
-selenoid_login = os.getenv("SELENOID_LOGIN")
-selenoid_pass = os.getenv("SELENOID_PASS")
-selenoid_url = os.getenv("SELENOID_URL")
-
 
 @pytest.fixture(scope="function")
 def setup_browser(request):
+    selenoid_login = os.getenv("SELENOID_LOGIN")
+    selenoid_pass = os.getenv("SELENOID_PASS")
+    selenoid_url = os.getenv("SELENOID_URL")
+
     options = Options()
     options.page_load_strategy = "eager"
 
