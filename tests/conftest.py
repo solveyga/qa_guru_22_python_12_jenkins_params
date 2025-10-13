@@ -5,7 +5,6 @@ from selenium.webdriver.chrome.options import Options
 from selene import Browser, Config
 
 from utils import attaches
-import logging
 from dotenv import load_dotenv
 import os
 
@@ -16,10 +15,9 @@ def load_env():
     dotenv_path = os.path.join(base_dir, '.env')
     load_dotenv(dotenv_path=dotenv_path)
 
-    logging.basicConfig(level=logging.INFO)
-    logging.info(f"SELENOID_LOGIN={os.getenv('SELENOID_LOGIN')}")
-    logging.info(f"SELENOID_PASS={os.getenv('SELENOID_PASS')}")
-    logging.info(f"SELENOID_URL={os.getenv('SELENOID_URL')}")
+    print(f"SELENOID_LOGIN={os.getenv('SELENOID_LOGIN')}")
+    print(f"SELENOID_PASS={os.getenv('SELENOID_PASS')}")
+    print(f"SELENOID_URL={os.getenv('SELENOID_URL')}")
 
 
 selenoid_login = os.getenv("SELENOID_LOGIN")
