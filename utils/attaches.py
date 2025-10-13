@@ -1,6 +1,8 @@
 import allure
 from allure_commons.types import AttachmentType
-from tests.conftest import selenoid_url
+import os
+
+selenoid_url = os.getenv("SELENOID_URL")
 
 
 def add_screenshot(browser):
