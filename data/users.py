@@ -1,5 +1,5 @@
 import dataclasses
-from dataclasses import dataclass, field
+from dataclasses import field
 from datetime import date
 from enum import Enum
 

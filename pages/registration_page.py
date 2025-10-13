@@ -1,4 +1,4 @@
-from selene import have, command
+from selene import have
 from selene.support.shared import browser
 from pathlib import Path
 from data.users import User, Gender, Hobby
