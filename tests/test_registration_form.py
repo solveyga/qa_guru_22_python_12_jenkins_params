@@ -4,8 +4,9 @@ import allure
 
 
 @allure.feature("Проверка заполнения формы")
-def test_registration_form_with_all_fields():
+def test_registration_form_with_all_fields(setup_browser):
 
+    browser = setup_browser
     user = User()
     registration_page = RegistrationPage()
 
