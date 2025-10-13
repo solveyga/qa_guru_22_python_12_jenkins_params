@@ -8,6 +8,9 @@ from utils import attaches
 from dotenv import load_dotenv
 import os
 
+import tempfile
+import shutil
+
 
 @pytest.fixture(scope="session", autouse=True)
 def load_env():
@@ -24,6 +27,13 @@ def setup_browser(request):
 
     options = Options()
     options.page_load_strategy = "eager"
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+
+    temp_dir = tempfile.mkdtemp()
+    options.add_argument(f'--user-data-dir={temp_dir}')
+
 
     selenoid_capabilities = {
         "browserName": "chrome",
@@ -48,3 +58,4 @@ def setup_browser(request):
     attaches.add_video(browser)
 
     browser.quit()
+    shutil.rmtree(temp_dir)
