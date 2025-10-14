@@ -2,6 +2,7 @@ from selene import have
 from selene.support.shared import browser
 from pathlib import Path
 from data.users import User, Gender, Hobby
+import os
 
 
 class RegistrationPage:
@@ -48,6 +49,13 @@ class RegistrationPage:
             browser.element(self.HOBBIES_MAP[hobby]).click()
         return self
 
+    def get_photo_path(self, photo_name: str):
+        file_path = os.path.abspath(__file__)
+        root_dir_path = os.path.dirname(os.path.dirname(file_path))
+        photo_path = os.path.join(root_dir_path, 'resources', photo_name)
+        return photo_path
+
+
     def register(self, user: User):
         self.first_name.type(user.first_name)
         self.last_name.type(user.last_name)
@@ -75,7 +83,9 @@ class RegistrationPage:
 
         self.address.type(user.address)
 
-        self.photo.send_keys(Path(f"resources/{user.photo}").absolute().__str__())
+        #self.photo.send_keys(Path(f"resources/{user.photo}").absolute().__str__())
+        photo_path = self.get_photo_path(user.photo)
+        self.photo.send_keys(photo_path)
 
         self.state.click()
         browser.all("#state div").element_by(have.exact_text(user.state)).click()
