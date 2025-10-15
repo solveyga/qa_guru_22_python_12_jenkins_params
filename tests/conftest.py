@@ -9,6 +9,16 @@ from dotenv import load_dotenv
 import os
 
 
+DEFAULT_BROWSER_VERSION = "128.0"
+
+
+def pytest_addoption(parser):
+    parser.addoption(
+        '--browser_version',
+        default='128.0'
+    )
+
+
 @pytest.fixture(scope="session", autouse=True)
 def load_env():
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -16,18 +26,21 @@ def load_env():
     load_dotenv(dotenv_path=dotenv_path)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def setup_browser(request):
     selenoid_login = os.getenv("SELENOID_LOGIN")
     selenoid_pass = os.getenv("SELENOID_PASS")
     selenoid_url = os.getenv("SELENOID_URL")
+
+    browser_version = request.config.getoption('--browser_version')
+    browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
 
     options = Options()
     options.page_load_strategy = "eager"
 
     selenoid_capabilities = {
         "browserName": "chrome",
-        "browserVersion": "128.0",
+        "browserVersion": browser_version,
         "selenoid:options": {"enableVNC": True, "enableVideo": True},
     }
     options.capabilities.update(selenoid_capabilities)
