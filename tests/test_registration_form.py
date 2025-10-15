@@ -7,6 +7,10 @@ import allure
 def test_registration_form_with_all_fields(setup_browser):
 
     browser = setup_browser
+
+    browser_version = browser.browser_version
+    allure.dynamic.title(f"Проверка регистрационной формы [Chrome v. {browser_version}]")
+
     user = User()
     registration_page = RegistrationPage()
 
