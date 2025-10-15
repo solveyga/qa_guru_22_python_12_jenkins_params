@@ -26,7 +26,7 @@ def load_env():
     load_dotenv(dotenv_path=dotenv_path)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def setup_browser(request):
     selenoid_login = os.getenv("SELENOID_LOGIN")
     selenoid_pass = os.getenv("SELENOID_PASS")
